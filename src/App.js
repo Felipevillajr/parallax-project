@@ -12,29 +12,34 @@ function App() {
 
   function handleMouseMove(e) {
     setMousePositionX({ left: e.pageX });
-    setMousePositionY({ left: e.pageX });
-    if (mousePositionX && mousePositionX === null) magic(e);
-  }
-
-  function magic(e) {
+    setMousePositionY({ top: e.pageX });
     let w = window.innerWidth / 2;
     let h = window.innerHeight / 2;
-    let mouseX = mousePositionX;
-    let mouseY = mousePositionY;
-    let depth1 = `${50 - (mouseX - w) * 0.01}% 
-    ${50 - (mouseY - h) * 0.01}%`;
-    let depth2 = `${50 - (mouseX - w) * 0.02}% ${50 - (mouseY - h) * 0.02}%`;
-    let depth3 = `${50 - (mouseX - w) * 0.06}%
-    ${50 - (mouseY - h) * 0.06}%`;
-    let x = `${depth3}, ${depth2}, ${depth1}`;
-    console.log(x);
-    e.style.backgroundPosition = x;
+    let mouseX = mousePositionX.left - w;
+    let mouseY = mousePositionY.top - h;
+    let layer = document.querySelector("#parallax");
+    let bg = document.querySelector(".bg");
+
+    bg.style.transform =
+      "translateX(-" +
+      (0 + mouseX / 1000) +
+      "%) translateY(-" +
+      (0 + mouseY / 1000) +
+      "%)";
+    layer.style.transform =
+      "translateX(-" +
+      (2 + mouseX / 150) +
+      "%) translateY(-" +
+      (2 + mouseY / 300) +
+      "%)";
   }
+  // useEffect(() => {});
 
   return (
-    <div onMouseMove={(e) => handleMouseMove(e)} id="parallax">
-      <h1>Effect</h1>
-    </div>
+    <>
+      <div className="bg"></div>
+      <div onMouseMove={(e) => handleMouseMove(e)} id="parallax"></div>
+    </>
   );
 }
 
