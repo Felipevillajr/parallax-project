@@ -7,12 +7,13 @@ function App() {
   });
 
   const [mousePositionY, setMousePositionY] = useState({
-    left: 0,
+    top: 0,
   });
 
   function handleMouseMove(e) {
     setMousePositionX({ left: e.pageX });
     setMousePositionY({ left: e.pageX });
+    if (mousePositionX && mousePositionX === null) magic(e);
   }
 
   function magic(e) {
